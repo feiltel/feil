@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class Recycler3Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<Map<String, Object>> list;
     private LayoutInflater mInflater;
     private Context context;
@@ -19,7 +19,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int ITEM2 = 0;
     private static final int ITEM1 = 2;
 
-    public RecyclerAdapter(Context contexts, ArrayList<Map<String, Object>> list) {
+    public Recycler3Adapter(Context contexts, ArrayList<Map<String, Object>> list) {
         mInflater = LayoutInflater.from(contexts);
         this.context = contexts;
         this.list = list;
@@ -51,21 +51,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ITEM1) {
-            View view = mInflater.inflate(R.layout.recycler_item1,
+            View view = mInflater.inflate(R.layout.recycler1_item1,
                     parent, false);
             Item1ViewHolder item1ViewHolder = new Item1ViewHolder(view);
             item1ViewHolder.mImageView = (ImageView) view
                     .findViewById(R.id.im_recycler_item);
             return item1ViewHolder;
         } else if (viewType == ITEM2) {
-            View view = mInflater.inflate(R.layout.recycler_item2,
+            View view = mInflater.inflate(R.layout.recycler1_item2,
                     parent, false);
             Item2ViewHolder item2ViewHolder = new Item2ViewHolder(view);
             item2ViewHolder.mImageView = (ImageView) view
                     .findViewById(R.id.im_recycler_item);
             return item2ViewHolder;
         } else if (viewType == TYPE_FOOTER) {
-            View view = mInflater.inflate(R.layout.recycler_item_foot,
+            View view = mInflater.inflate(R.layout.recycler1_item_foot,
                     parent, false);
             FootViewHolder footViewHolder = new FootViewHolder(view);
             footViewHolder.mImageView = (ImageView) view

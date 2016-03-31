@@ -1,12 +1,10 @@
 package com.nutstudio.nutslab;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +17,11 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RecyclerFragment extends Fragment {
+public class Pager1Fragment extends Fragment {
     @Bind(R.id.recycler)
     RecyclerView recyclerView;
     private View rootView;
-    private RecyclerAdapter mAdapter;
+    private Recycler1Adapter mAdapter;
     private ArrayList<Map<String, Object>> dataSet = new ArrayList<Map<String, Object>>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,10 +41,10 @@ public class RecyclerFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter = new RecyclerAdapter(getActivity(), getData());
+        mAdapter = new Recycler1Adapter(getActivity(), getData());
         recyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickLitener(new RecyclerAdapter.OnItemClickCall() {
+        mAdapter.setOnItemClickLitener(new Recycler1Adapter.OnItemClickCall() {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(getActivity(), position + "click", Toast.LENGTH_SHORT).show();
