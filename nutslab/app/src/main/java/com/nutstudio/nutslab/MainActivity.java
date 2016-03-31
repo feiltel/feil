@@ -2,28 +2,56 @@ package com.nutstudio.nutslab;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    @Bind(R.id.main_tab_layout)
+    TabLayout mainTabLayout;
+    @Bind(R.id.main_pager)
+    ViewPager mainPager;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
+    @Bind(R.id.nav_view)
+    NavigationView navView;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawer;
+    private ViewPagerAdapter mPagerAdapetr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
+        initSystemEvent();
+    }
+
+    private void initSystemEvent() {
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,15 +59,45 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        navView = (NavigationView) findViewById(R.id.nav_view);
+        navView.setNavigationItemSelectedListener(this);
+        mainTabLayout.addTab(mainTabLayout.newTab().setText("1"));
+        mainTabLayout.addTab(mainTabLayout.newTab().setText("2"));
+        mainTabLayout.addTab(mainTabLayout.newTab().setText("3"));
+        mainTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mainPager.setCurrentItem(tab.getPosition());
+            }
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        LayoutInflater inflater = LayoutInflater.from(this);
+        List<View> content = new ArrayList<View>();
+        View view0 = inflater.inflate(R.layout.pager_item1, null);
+        View view1 = inflater.inflate(R.layout.pager_item2, null);
+        View view2 = inflater.inflate(R.layout.pager_item3, null);
+        content.add(view0);
+        content.add(view1);
+        content.add(view2);
+        mPagerAdapetr = new ViewPagerAdapter(content);
+        mPagerAdapetr.notifyDataSetChanged();
+        mainPager.setAdapter(mPagerAdapetr);
+        TabLayout.TabLayoutOnPageChangeListener listener =
+                new TabLayout.TabLayoutOnPageChangeListener(mainTabLayout);
+        mainPager.addOnPageChangeListener(listener);
     }
 
     @Override
@@ -94,7 +152,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
