@@ -15,8 +15,6 @@ public class Recycler3Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private ArrayList<Map<String, Object>> list;
     private LayoutInflater mInflater;
     private Context context;
-    private static final int TYPE_FOOTER = 1;
-    private static final int ITEM2 = 0;
     private static final int ITEM1 = 2;
 
     public Recycler3Adapter(Context contexts, ArrayList<Map<String, Object>> list) {
@@ -27,13 +25,14 @@ public class Recycler3Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        if (position % 2 == 0) {
-            return ITEM1;
+        return ITEM1;
+       /* if (position % 2 == 0) {
+
         } else if (position == list.size() - 1) {
             return TYPE_FOOTER;
         } else {
             return ITEM2;
-        }
+        }*/
     }
 
     public interface OnItemClickCall {
@@ -41,36 +40,19 @@ public class Recycler3Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         void onItemLongClick(View view, int position);
     }
-
     private OnItemClickCall mOnItemClickCall;
-
-    public void setOnItemClickLitener(OnItemClickCall mOnItemClickCall) {
+    public void setOnItemClickLisener(OnItemClickCall mOnItemClickCall) {
         this.mOnItemClickCall = mOnItemClickCall;
     }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ITEM1) {
-            View view = mInflater.inflate(R.layout.recycler1_item1,
+            View view = mInflater.inflate(R.layout.recycler3_item1,
                     parent, false);
             Item1ViewHolder item1ViewHolder = new Item1ViewHolder(view);
             item1ViewHolder.mImageView = (ImageView) view
                     .findViewById(R.id.im_recycler_item);
             return item1ViewHolder;
-        } else if (viewType == ITEM2) {
-            View view = mInflater.inflate(R.layout.recycler1_item2,
-                    parent, false);
-            Item2ViewHolder item2ViewHolder = new Item2ViewHolder(view);
-            item2ViewHolder.mImageView = (ImageView) view
-                    .findViewById(R.id.im_recycler_item);
-            return item2ViewHolder;
-        } else if (viewType == TYPE_FOOTER) {
-            View view = mInflater.inflate(R.layout.recycler1_item_foot,
-                    parent, false);
-            FootViewHolder footViewHolder = new FootViewHolder(view);
-            footViewHolder.mImageView = (ImageView) view
-                    .findViewById(R.id.im_recycler_item);
-            return footViewHolder;
         }
         return null;
     }
@@ -106,7 +88,6 @@ public class Recycler3Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void insertItem(int position) {
 
     }
-
     public void removeItem(int position) {
         list.remove(position);
         notifyItemRemoved(position);

@@ -8,7 +8,6 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +22,7 @@ public class Pager3Fragment extends Fragment {
     private View rootView;
     private Recycler3Adapter mAdapter;
     private ArrayList<Map<String, Object>> dataSet = new ArrayList<Map<String, Object>>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,19 +43,6 @@ public class Pager3Fragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new Recycler3Adapter(getActivity(), getData());
         recyclerView.setAdapter(mAdapter);
-
-        mAdapter.setOnItemClickLitener(new Recycler3Adapter.OnItemClickCall() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Toast.makeText(getActivity(), position + "click", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                mAdapter.removeItem(position);
-                Toast.makeText(getActivity(), position + "long_click", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private ArrayList<Map<String, Object>> getData() {

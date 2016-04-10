@@ -27,9 +27,9 @@ public class Recycler1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        if (position % 2 == 0) {
+        if (position % 2 == 0&&position != (list.size() - 1)) {
             return ITEM1;
-        } else if (position == list.size() - 1) {
+        } else if (position == (list.size() - 1)) {
             return TYPE_FOOTER;
         } else {
             return ITEM2;

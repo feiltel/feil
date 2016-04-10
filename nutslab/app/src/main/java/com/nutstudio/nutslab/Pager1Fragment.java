@@ -33,8 +33,8 @@ public class Pager1Fragment extends Fragment {
         recyclerView.setNestedScrollingEnabled(true);
         return rootView;
     }
-
     private void initView() {
+
     }
 
     private void initRecyclerView() {
@@ -67,8 +67,6 @@ public class Pager1Fragment extends Fragment {
         }
         return dataSet;
     }
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
